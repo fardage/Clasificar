@@ -24,6 +24,7 @@ https://user-images.githubusercontent.com/48010396/127134096-20d99598-f515-4e55-
 - [Electron](https://github.com/electron/electron)
 - [natural](https://github.com/NaturalNode/natural)
 - [node-poppler](https://github.com/Fdawgs/node-poppler)
+- [node-tesseract-ocr](https://github.com/tesseract-ocr/tessdoc/blob/master/Installation.md)
 - [Pico.css](https://github.com/picocss/pico)
 
 ## Getting Started
@@ -32,10 +33,11 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-- Install dependencies
-  ```sh
-  brew install tesseract tesseract-lang poppler
-  ```
+**macOS**
+
+```sh
+brew install tesseract tesseract-lang poppler
+```
 
 ### Installation
 

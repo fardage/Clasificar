@@ -6,6 +6,7 @@ class TextClassifierBuilder {
     this.language = null;
     this.documents = null;
     this.sender = null;
+    this.textExtractor = null;
   }
 
   withLanguage(language) {
@@ -23,12 +24,17 @@ class TextClassifierBuilder {
     return this;
   }
 
+  withTextExtractor(textExtractor) {
+    this.textExtractor = textExtractor;
+    return this;
+  }
+
   create() {
     if (!this._isValid()) {
       throw new Error("TextClassifierBuilder is missing values");
     }
 
-    let classifier = new TextClassifier(this.language);
+    let classifier = new TextClassifier(this.language, this.textExtractor);
     for (const document of this.documents) {
       classifier.addDocument(document[1], document[0]);
     }

@@ -1,17 +1,33 @@
+import Settings from "./Settings";
+
 export default class IndexController {
   constructor(ipc) {
     this.ipc = ipc;
-    this.targetFolder = null;
-    this.sourceFiles = [];
+    this.settings = new Settings();
   }
 
   init() {
     $("#btnTarget").on("click", () => {
+      event.preventDefault();
+      event.stopPropagation();
       this._showOpenFileDialog();
     });
     $("#btnStartSort").on("click", () => {
+      event.preventDefault();
+      event.stopPropagation();
       this._startBtnClicked();
     });
+    $("#settingsBtn").on("click", () => {
+      event.preventDefault();
+      event.stopPropagation();
+      this._toggleSettingsVisibility();
+    });
+    $("#txtPopplerPath")
+      .on("change", (event) => this.settings.setPopplerPath(event.target.value))
+      .val(this.settings.popplerPath);
+    $("#txtDocLanguage")
+      .on("change", (event) => this.settings.setDocLanguage(event.target.value))
+      .val(this.settings.docLanguage);
     this.ipc.on("open-dialog-paths-selected", (event, arg) => {
       this._setTextTarget(arg);
     });
@@ -53,17 +69,27 @@ export default class IndexController {
   }
 
   _startBtnClicked() {
-    if (!this.targetFolder) {
+    if (!this.settings.targetFolder) {
       $("#txtTarget").attr("aria-invalid", "true");
-    } else if (this.sourceFiles.length === 0) {
+    } else if (!this.settings.sourceFiles.length === 0) {
       $("#drop-area").attr("aria-invalid", "true");
+    } else if (!this.settings.docLanguage) {
+      $("#settings").attr("hidden", false);
+      $("#txtDocLanguage").attr("aria-invalid", "true");
+    } else if (!this.settings.popplerPath) {
+      $("#settings").attr("hidden", false);
+      $("#txtPopplerPath").attr("aria-invalid", "true");
     } else {
+      $("#txtTarget").attr("aria-invalid", "false");
+      $("#drop-area").attr("aria-invalid", "false");
+      $("#txtDocLanguage").attr("aria-invalid", "false");
+      $("#txtPopplerPath").attr("aria-invalid", "false");
       this._startSort();
     }
   }
 
   _setTextTarget(text) {
-    this.targetFolder = text;
+    this.settings.targetFolder = text;
     $("#txtTarget").val(text);
   }
 
@@ -114,7 +140,7 @@ export default class IndexController {
             .on("click", (event) => this._handleSortFileCommand(event))
             .data("data", {
               from: file.path,
-              targetFolder: this.targetFolder,
+              targetFolder: this.settings.targetFolder,
               to: predictions[i].label,
             });
           details.append(suggestion);
@@ -125,8 +151,8 @@ export default class IndexController {
   }
 
   _setSourceDocuments(fileList) {
-    this.sourceFiles = [...fileList].filter((f) => f.path.endsWith(".pdf"));
-    this._showSourceDocuments(this.sourceFiles);
+    this.settings.setSourceFiles(fileList);
+    this._showSourceDocuments(this.settings.sourceFiles);
   }
 
   _startSort() {
@@ -136,10 +162,7 @@ export default class IndexController {
       .attr("readonly", true)
       .attr("aria-busy", "true");
 
-    this.ipc.send("start-sort", {
-      sourceFiles: this.sourceFiles.map((f) => f.path),
-      targetFolder: this.targetFolder,
-    });
+    this.ipc.send("start-sort", JSON.stringify(this.settings));
   }
 
   _resetStatus() {
@@ -161,5 +184,10 @@ export default class IndexController {
     this.ipc.send("move-file", element.data("data"));
 
     element.parent().remove();
+  }
+
+  _toggleSettingsVisibility() {
+    let isHidden = $("#settings").attr("hidden");
+    $("#settings").attr("hidden", !isHidden);
   }
 }

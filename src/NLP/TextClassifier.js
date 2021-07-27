@@ -3,7 +3,8 @@ const path = require("path");
 const PdfOcr = require("../File/PdfOcr");
 
 class TextClassifier {
-  constructor(language) {
+  constructor(language, textExtractor) {
+    this.textExtractor = textExtractor;
     this.classifier = new natural.BayesClassifier();
     this.language = language;
   }
@@ -21,8 +22,7 @@ class TextClassifier {
   }
 
   async predictPdf(pdfPath, tmpDir) {
-    let pdfOcr = new PdfOcr(this.language);
-    let text = await pdfOcr.getText(pdfPath, tmpDir);
+    let text = await this.textExtractor.getText(pdfPath, tmpDir);
     return this.predict(text);
   }
 

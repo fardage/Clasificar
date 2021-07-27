@@ -4,10 +4,10 @@ const path = require("path");
 const fs = require("fs");
 
 class PdfOcr {
-  constructor(language) {
+  constructor(language, popplerPath) {
     this.language = language;
 
-    this.poppler = new Poppler("/opt/homebrew/Cellar/poppler/21.07.0_1/bin/");
+    this.poppler = new Poppler(popplerPath);
     this.popplerOptions = {
       firstPageToConvert: 1,
       lastPageToConvert: 1,

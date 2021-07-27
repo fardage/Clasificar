@@ -38,11 +38,12 @@ class MainController {
     });
   }
 
-  async _analyseFiles(sender, args) {
+  async _analyseFiles(sender, arg) {
+    let settings = JSON.parse(arg);
     let textCorpusBuilder = new TextCorpusBuilder();
-    let targetDirectory = new TargetDirectory(args.targetFolder);
+    let targetDirectory = new TargetDirectory(settings.targetFolder);
     let tmpDirectory = path.join(targetDirectory.path, "tmp");
-    let pdfOcr = new PdfOcr("DEU");
+    let pdfOcr = new PdfOcr(settings.docLanguage, settings.popplerPath);
     let textClassifierBuilder = new TextClassifierBuilder();
 
     let textCorpus = await textCorpusBuilder
@@ -54,12 +55,13 @@ class MainController {
       .create();
 
     let classifier = textClassifierBuilder
-      .withLanguage("DEU")
+      .withLanguage(settings.docLanguage)
       .withDocuments(textCorpus)
       .withSender(sender)
+      .withTextExtractor(pdfOcr)
       .create();
 
-    return classifier.predictPdfs(args.sourceFiles, tmpDirectory);
+    return classifier.predictPdfs(settings.sourceFiles, tmpDirectory);
   }
 
   _copyFile(sender, arg) {
