@@ -1,0 +1,7 @@
+import "@picocss/pico/css/pico.min.css";
+import "./index.css";
+import { ipcRenderer } from "electron";
+import IndexController from "./Controllers/IndexController";
+
+let controller = new IndexController(ipcRenderer);
+controller.init();

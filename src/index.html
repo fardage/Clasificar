@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <meta title="Clasificar">
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<main class="container-fluid">
+    <div class="grid">
+        <article>
+            <header>
+                <strong>Status</strong>
+            </header>
+            <div class="grid">
+                <label>
+                    <strong>Target Directory</strong>
+                    <input type="text" id="txtTarget" placeholder="Folder"/>
+                    <button id="btnTarget" class="outline">Set Target Folder</button>
+                </label>
+            </div>
+            <p><kbd id="statusText">Idle..</kbd></p>
+            <progress id="progressBarScan" value="0" max="0"></progress>
+            <div class="grid">
+                <div class="grid">
+                    <label>
+                        <input id="scanTaskChkBox" type="checkbox" readonly disabled/>
+                        1. Scan Target
+                    </label>
+                    <label>
+                        <input id="nlpTaskChkBox" type="checkbox" readonly disabled/>
+                        2. NLP on Target
+                    </label>
+                    <label>
+                        <input id="predictTaskChkBox" type="checkbox" readonly disabled/>
+                        3. Classify new Files
+                    </label>
+                </div>
+            </div>
+            <footer>
+                <button id="btnStartSort" class="btn btn-primary">Start Sorting</button>
+            </footer>
+        </article>
+        <article>
+            <header>
+                <strong>Files</strong>
+            </header>
+            <label>
+                <strong>To Sort</strong>
+                <input type="text" id="drop-area" placeholder="Drop File(s) Here" readonly/>
+            </label>
+            <label>
+                <strong>Loaded Files </strong>
+                <div id="categories"></div>
+            </label>
+        </article>
+    </div>
+</main>
+</body>
+</html>
