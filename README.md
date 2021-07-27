@@ -17,6 +17,8 @@
 
 Sorting PDF files can be boring and tedious. Clasificar analyzes the existing data structure and sorts your documents into the appropriate folders. Are your PDFs not searchable? No problem, the app runs OCR on your files.
 
+https://user-images.githubusercontent.com/48010396/127134096-20d99598-f515-4e55-abd8-cc8b7e7d0a93.mp4
+
 ### Built With
 
 - [Electron](https://github.com/electron/electron)
