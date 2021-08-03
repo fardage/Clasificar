@@ -1,4 +1,4 @@
-import Settings from "./Settings";
+import Settings from "../Configuration/Settings";
 
 export default class IndexController {
   constructor(ipc) {
@@ -152,7 +152,7 @@ export default class IndexController {
 
   _setSourceDocuments(fileList) {
     this.settings.setSourceFiles(fileList);
-    this._showSourceDocuments(this.settings.sourceFiles);
+    this._showSourceDocuments(fileList);
   }
 
   _startSort() {

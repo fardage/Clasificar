@@ -2,6 +2,7 @@ const TextCorpusBuilder = require("../NLP/TextCorpusBuilder");
 const TargetDirectory = require("../File/TargetDirectory");
 const TextClassifierBuilder = require("../NLP/TextClassifierBuilder");
 const PdfOcr = require("../File/PdfOcr");
+const config = require("../Configuration/Config");
 const path = require("path");
 const fs = require("fs");
 
@@ -26,10 +27,6 @@ class MainController {
     this.ipc.on("move-file", (event, args) => {
       this._copyFile(event.sender, args);
     });
-
-    this.ipc.on("done-move-file", (event, args) => {
-      this._showSuccess(args);
-    });
   }
 
   _showOpenDialog(event, arg) {
@@ -42,7 +39,7 @@ class MainController {
     let settings = JSON.parse(arg);
     let textCorpusBuilder = new TextCorpusBuilder();
     let targetDirectory = new TargetDirectory(settings.targetFolder);
-    let tmpDirectory = path.join(targetDirectory.path, "tmp");
+    let tmpDirectory = path.join(targetDirectory.path, config.TEMP_DIR_NAME);
     let pdfOcr = new PdfOcr(settings.docLanguage, settings.popplerPath);
     let textClassifierBuilder = new TextClassifierBuilder();
 
@@ -73,8 +70,6 @@ class MainController {
       }
     );
   }
-
-  _showSuccess(args) {}
 }
 
 module.exports = MainController;

@@ -1,105 +1,105 @@
 <!DOCTYPE html>
 <html lang="EN">
-  <head>
-    <meta title="Clasificar" />
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-    <main class="container-fluid">
-      <nav>
-        <ul>
-          <li>
-            <img
-              src="./assets/icon.png"
-              alt="Clasificar Icon"
-              style="max-width: 5em"
-            />
-          </li>
-          <li><h1>Clasificar</h1></li>
-        </ul>
-        <ul>
-          <li id="settingsBtn">
-            <h1><i class="fas fa-sliders-h"></i></h1>
-          </li>
-        </ul>
-      </nav>
-      <article id="settings" hidden>
-        <header>
-          <strong>Settings</strong>
-        </header>
-        <label>
-          <strong>Poppler Path</strong>
-          <input
-            type="text"
-            id="txtPopplerPath"
-            placeholder="eg. /opt/homebrew/Cellar/poppler/21.07.0_1/bin/"
-          />
-        </label>
-        <label>
-          <strong>Document Language</strong>
-          <input type="text" id="txtDocLanguage" placeholder="eg. ENG" />
-        </label>
-      </article>
+<head>
+  <meta title="Clasificar" />
+  <meta charset="UTF-8" />
+</head>
+<body>
+<main class="container-fluid">
+  <nav>
+    <ul>
+      <li>
+        <img
+          alt="Clasificar Icon"
+          src="./assets/icon.png"
+          style="max-width: 5em"
+        />
+      </li>
+      <li><h1>Clasificar</h1></li>
+    </ul>
+    <ul>
+      <li id="settingsBtn">
+        <h1><i class="fas fa-sliders-h"></i></h1>
+      </li>
+    </ul>
+  </nav>
+  <article hidden id="settings">
+    <header>
+      <strong>Settings</strong>
+    </header>
+    <label>
+      <strong>Poppler Path</strong>
+      <input
+        id="txtPopplerPath"
+        placeholder="eg. /opt/homebrew/Cellar/poppler/21.07.0_1/bin/"
+        type="text"
+      />
+    </label>
+    <label>
+      <strong>Document Language</strong>
+      <input id="txtDocLanguage" placeholder="eg. ENG" type="text" />
+    </label>
+  </article>
+  <div class="grid">
+    <article>
+      <header>
+        <strong>Status</strong>
+      </header>
       <div class="grid">
-        <article>
-          <header>
-            <strong>Status</strong>
-          </header>
-          <div class="grid">
-            <label>
-              <strong>Target Directory</strong>
-              <input type="text" id="txtTarget" placeholder="Folder" />
-              <button id="btnTarget" class="outline">Set Target Folder</button>
-            </label>
-          </div>
-          <p><kbd id="statusText">Idle..</kbd></p>
-          <progress id="progressBarScan" value="0" max="0"></progress>
-          <div class="grid">
-            <div class="grid">
-              <label>
-                <input id="scanTaskChkBox" type="checkbox" readonly disabled />
-                1. Scan Target
-              </label>
-              <label>
-                <input id="nlpTaskChkBox" type="checkbox" readonly disabled />
-                2. NLP on Target
-              </label>
-              <label>
-                <input
-                  id="predictTaskChkBox"
-                  type="checkbox"
-                  readonly
-                  disabled
-                />
-                3. Classify new Files
-              </label>
-            </div>
-          </div>
-          <footer>
-            <button id="btnStartSort" class="btn btn-primary">
-              Start Sorting
-            </button>
-          </footer>
-        </article>
-        <article>
-          <header>
-            <strong>Files</strong>
-          </header>
-          <label>
-            <strong>To Sort</strong>
-            <input
-              type="text"
-              id="drop-area"
-              placeholder="Drop File(s) Here"
-              readonly
-            />
-          </label>
-          <label>
-            <strong>Loaded Files </strong>
-            <div id="categories"></div>
-          </label>
-        </article>
+        <label>
+          <strong>Target Directory</strong>
+          <input id="txtTarget" placeholder="Folder" type="text" />
+          <button class="outline" id="btnTarget">Set Target Folder</button>
+        </label>
       </div>
-    </main>
-  </body>
+      <p><kbd id="statusText">Idle..</kbd></p>
+      <progress id="progressBarScan" max="0" value="0"></progress>
+      <div class="grid">
+        <div class="grid">
+          <label>
+            <input disabled id="scanTaskChkBox" readonly type="checkbox" />
+            1. Scan Target
+          </label>
+          <label>
+            <input disabled id="nlpTaskChkBox" readonly type="checkbox" />
+            2. NLP on Target
+          </label>
+          <label>
+            <input
+              disabled
+              id="predictTaskChkBox"
+              readonly
+              type="checkbox"
+            />
+            3. Classify new Files
+          </label>
+        </div>
+      </div>
+      <footer>
+        <button class="btn btn-primary" id="btnStartSort">
+          Start Sorting
+        </button>
+      </footer>
+    </article>
+    <article>
+      <header>
+        <strong>Files</strong>
+      </header>
+      <label>
+        <strong>To Sort</strong>
+        <input
+          id="drop-area"
+          placeholder="Drop File(s) Here"
+          readonly
+          type="text"
+        />
+      </label>
+      <label>
+        <strong>Loaded Files </strong>
+        <div id="categories"></div>
+      </label>
+    </article>
+  </div>
+</main>
+</body>
 </html>

@@ -1,6 +1,5 @@
 const natural = require("natural");
 const path = require("path");
-const PdfOcr = require("../File/PdfOcr");
 
 class TextClassifier {
   constructor(language, textExtractor) {

@@ -1,4 +1,3 @@
-const natural = require("natural");
 const TextClassifier = require("../NLP/TextClassifier");
 
 class TextClassifierBuilder {

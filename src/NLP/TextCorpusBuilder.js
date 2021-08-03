@@ -1,4 +1,5 @@
 const path = require("path");
+
 class TextCorpusBuilder {
   constructor() {
     this.targetDirectory = null;

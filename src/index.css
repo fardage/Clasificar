@@ -1,11 +1,11 @@
 .container-fluid {
-  padding: 3em;
+    padding: 3em;
 }
 
 #drop-area {
-  border-style: dashed;
+    border-style: dashed;
 }
 
 #categories {
-  margin-top: 2em;
+    margin-top: 2em;
 }
