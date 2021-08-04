@@ -43,7 +43,12 @@ class TextClassifierBuilder {
   }
 
   _isValid() {
-    return !(!this.language || !this.documents || !this.sender);
+    return !(
+      !this.language ||
+      !this.documents ||
+      !this.sender ||
+      !this.textExtractor
+    );
   }
 }
 

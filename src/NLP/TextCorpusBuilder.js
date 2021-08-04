@@ -1,4 +1,5 @@
 const path = require("path");
+const concurrent = require("../Concurrency/Concurrent");
 
 class TextCorpusBuilder {
   constructor() {
@@ -7,6 +8,7 @@ class TextCorpusBuilder {
     this.textExtractor = null;
     this.fileExtension = null;
     this.sender = null;
+    this.doneCount = 1;
   }
 
   withTargetDirectory(targetDirectory) {
@@ -44,21 +46,31 @@ class TextCorpusBuilder {
       throw new Error("TextCorpusBuilder is missing values");
     }
 
-    let textCorpus = [];
-
     let files = this.targetDirectory.getAllFiles(this.fileExtension);
-    for (let i = 0; i < files.length; i++) {
-      this.sender.send("update-scan-progress", {
-        files: files,
-        doneCount: i + 1,
-      });
-      let category = path.basename(path.dirname(files[i]));
-      let text = await this.textExtractor.getText(files[i], this.tmpDirectory);
-      textCorpus.push([category, text]);
-    }
+    let textCorpus = await this._runTextExtraction(files);
     this.sender.send("done-scan-progress");
 
     return textCorpus;
+  }
+
+  async _runTextExtraction(files) {
+    let promises = concurrent.ArrayProcessing(this._getText.bind(this), files);
+    let results = await Promise.all(promises);
+    return [].concat.apply([], results);
+  }
+
+  async _getText(i, files) {
+    this._sendUpdate(files);
+    let category = path.basename(path.dirname(files[i]));
+    let text = await this.textExtractor.getText(files[i], this.tmpDirectory);
+    return [category, text];
+  }
+
+  _sendUpdate(files) {
+    this.sender.send("update-scan-progress", {
+      files: files,
+      doneCount: this.doneCount++,
+    });
   }
 
   _isValid() {
