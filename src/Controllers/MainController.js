@@ -2,7 +2,7 @@ const TextCorpusBuilder = require("../NLP/TextCorpusBuilder");
 const TargetDirectory = require("../File/TargetDirectory");
 const TextClassifierBuilder = require("../NLP/TextClassifierBuilder");
 const PdfOcr = require("../File/PdfOcr");
-const config = require("../Configuration/Config");
+const Hash = require("../Crypto/Hash");
 const path = require("path");
 const fs = require("fs");
 
@@ -39,26 +39,29 @@ class MainController {
     let settings = JSON.parse(arg);
     let textCorpusBuilder = new TextCorpusBuilder();
     let targetDirectory = new TargetDirectory(settings.targetFolder);
-    let tmpDirectory = path.join(targetDirectory.path, config.TEMP_DIR_NAME);
     let pdfOcr = new PdfOcr(settings.docLanguage, settings.popplerPath);
     let textClassifierBuilder = new TextClassifierBuilder();
+    let md5Hash = new Hash();
 
     let textCorpus = await textCorpusBuilder
       .withTargetDirectory(targetDirectory)
-      .withTmpDirectory(tmpDirectory)
       .withTextExtractor(pdfOcr)
       .withFileExtension(".pdf")
       .withSender(sender)
+      .withHashAlgo(md5Hash)
       .create();
 
     let classifier = textClassifierBuilder
       .withLanguage(settings.docLanguage)
-      .withDocuments(textCorpus)
+      .withTextCorpus(textCorpus)
       .withSender(sender)
       .withTextExtractor(pdfOcr)
       .create();
 
-    return classifier.predictPdfs(settings.sourceFiles, tmpDirectory);
+    return classifier.predictPdfs(
+      settings.sourceFiles,
+      targetDirectory.appPath
+    );
   }
 
   _copyFile(sender, arg) {

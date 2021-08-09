@@ -3,7 +3,7 @@ const TextClassifier = require("../NLP/TextClassifier");
 class TextClassifierBuilder {
   constructor() {
     this.language = null;
-    this.documents = null;
+    this.textCorpus = null;
     this.sender = null;
     this.textExtractor = null;
   }
@@ -13,8 +13,8 @@ class TextClassifierBuilder {
     return this;
   }
 
-  withDocuments(documents) {
-    this.documents = documents;
+  withTextCorpus(textCorpus) {
+    this.textCorpus = textCorpus;
     return this;
   }
 
@@ -34,18 +34,18 @@ class TextClassifierBuilder {
     }
 
     let classifier = new TextClassifier(this.language, this.textExtractor);
-    for (const document of this.documents) {
-      classifier.addDocument(document[1], document[0]);
-    }
+    classifier.addTextCorpus(this.textCorpus);
     classifier.fit();
+
     this.sender.send("done-train-model-progress");
+
     return classifier;
   }
 
   _isValid() {
     return !(
       !this.language ||
-      !this.documents ||
+      !this.textCorpus ||
       !this.sender ||
       !this.textExtractor
     );

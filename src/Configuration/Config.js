@@ -1,5 +1,6 @@
 const config = {
-  TEMP_DIR_NAME: ".clasificar",
+  APP_DIR_NAME: ".clasificar",
+  TEXT_CORPUS_FILE_NAME: "textCorpus.json",
   POPPLER_OPTIONS: {
     firstPageToConvert: 1,
     lastPageToConvert: 1,

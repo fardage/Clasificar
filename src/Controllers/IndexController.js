@@ -7,17 +7,17 @@ export default class IndexController {
   }
 
   init() {
-    $("#btnTarget").on("click", () => {
+    $("#btnTarget").on("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       this._showOpenFileDialog();
     });
-    $("#btnStartSort").on("click", () => {
+    $("#btnStartSort").on("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       this._startBtnClicked();
     });
-    $("#settingsBtn").on("click", () => {
+    $("#settingsBtn").on("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       this._toggleSettingsVisibility();
@@ -71,7 +71,7 @@ export default class IndexController {
   _startBtnClicked() {
     if (!this.settings.targetFolder) {
       $("#txtTarget").attr("aria-invalid", "true");
-    } else if (!this.settings.sourceFiles.length === 0) {
+    } else if (this.settings.sourceFiles.length === 0) {
       $("#drop-area").attr("aria-invalid", "true");
     } else if (!this.settings.docLanguage) {
       $("#settings").attr("hidden", false);
@@ -97,7 +97,7 @@ export default class IndexController {
     let current = state.doneCount;
     let max = state.files.length;
     $("#progressBarScan").attr("value", current).attr("max", max);
-    this._setStatusText("Scanning Document: " + state.files[current - 1]);
+    this._setStatusText("Scanning Document:\n" + state.files[current - 1]);
   }
 
   _handleScanProgressDone() {

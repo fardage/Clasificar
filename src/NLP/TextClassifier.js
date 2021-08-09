@@ -12,6 +12,12 @@ class TextClassifier {
     this.classifier.addDocument(text, label);
   }
 
+  addTextCorpus(textCorpus) {
+    textCorpus.documents.forEach((doc, hash) => {
+      this.addDocument(doc.text, doc.category);
+    });
+  }
+
   fit() {
     this.classifier.train();
   }

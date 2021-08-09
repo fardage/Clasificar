@@ -1,13 +1,15 @@
+const settings = require("../Configuration/Config");
 const fs = require("fs");
 const path = require("path");
 
 class TargetDirectory {
-  constructor(path) {
-    this.path = path;
+  constructor(dirPath) {
+    this.dirPath = dirPath;
+    this.appPath = path.join(dirPath, settings.APP_DIR_NAME);
   }
 
   getAllFiles(fileExtension) {
-    let files = this._readAllFiles(this.path);
+    let files = this._readAllFiles(this.dirPath);
 
     if (!fileExtension) {
       return files;
