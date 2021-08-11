@@ -15,7 +15,7 @@
 
 ## About The Project
 
-Sorting PDF files can be boring and tedious. Clasificar analyzes the existing data structure and sorts your documents into the appropriate folders. Are your PDFs not searchable? No problem, the app runs OCR on your files.
+Sorting PDF files can be boring and tedious. Clasificar analyzes your file structure and sorts your documents into the appropriate folders. Are your PDFs not searchable? No problem, the app runs OCR on your files.
 
 https://user-images.githubusercontent.com/48010396/127134096-20d99598-f515-4e55-abd8-cc8b7e7d0a93.mp4
 
@@ -24,10 +24,23 @@ https://user-images.githubusercontent.com/48010396/127134096-20d99598-f515-4e55-
 - [Electron](https://github.com/electron/electron)
 - [natural](https://github.com/NaturalNode/natural)
 - [node-poppler](https://github.com/Fdawgs/node-poppler)
-- [node-tesseract-ocr](https://github.com/tesseract-ocr/tessdoc/blob/master/Installation.md)
+- [node-tesseract-ocr](https://github.com/zapolnoch/node-tesseract-ocr)
 - [Pico.css](https://github.com/picocss/pico)
 
-## Getting Started
+### Features
+
+- Sorting with a Bayesian Classifier
+- Optical Character Recognition on PDF-Files
+- Concurrent File Processing
+- Caching Document Text
+
+## Download
+
+### macOS
+
+- https://github.com/fardage/Clasificar/releases/
+
+## Build
 
 To get a local copy up and running follow these simple steps.
 
@@ -69,3 +82,5 @@ Any contributions you make are greatly appreciated.
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+<div>Icon <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
